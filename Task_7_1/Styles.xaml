@@ -1,0 +1,69 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="CustomCheckBox" TargetType="CheckBox">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <Grid Margin="16">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Width="22" Height="22">
+                            <Rectangle RadiusX="3" RadiusY="3"
+                                       Stroke="#808080" Fill="White"/>
+                            <TextBlock x:Name="PART_X"
+                                       Text="X"
+                                       FontWeight="Bold"
+                                       Opacity="0"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+                            <Ellipse x:Name="PART_Dot"
+                                     Width="8" Height="8"
+                                     Fill="#808080"
+                                     Opacity="0"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center"/>
+                        </Grid>
+
+                        <ContentPresenter x:Name="Label"
+                                          Grid.Row="1"
+                                          Margin="0,6,0,0"
+                                          Content="{TemplateBinding Content}"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="PART_X" Property="Opacity" Value="1"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="{x:Null}">
+                            <Setter TargetName="PART_Dot" Property="Opacity" Value="1"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="#888"/>
+                            <Setter TargetName="PART_X" Property="Foreground" Value="#888"/>
+                            <Setter TargetName="PART_Dot" Property="Fill" Value="#AAA"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter TargetName="Label" Property="Content" Value="UnChecked"/>
+                        </Trigger>
+
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="Label" Property="Content" Value="Checked"/>
+                        </Trigger>
+
+                        <Trigger Property="IsChecked" Value="{x:Null}">
+                            <Setter TargetName="Label" Property="Content" Value="Indeterminate"/>
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
