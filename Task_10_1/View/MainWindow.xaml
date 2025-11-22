@@ -1,0 +1,73 @@
+﻿<Window x:Class="Task_10.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Task_10"
+        xmlns:vm="clr-namespace:Task_10.ViewModels"
+        xmlns:conv="clr-namespace:Task_10.Converters"
+        mc:Ignorable="d"
+        Title="Система входа"
+        Height="260" Width="420"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <conv:BoolToBrushConverter x:Key="BoolToBrushConverter"
+                                   SuccessBrush="LightGreen"
+                                   FailBrush="Red"/>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <vm:LoginViewModel/>
+    </Window.DataContext>
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Форма входа"
+                   FontSize="18"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center"/>
+
+        <StackPanel Grid.Row="1" Margin="0,12,0,0">
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                <TextBlock Text="Логин:"
+                           Width="80"
+                           VerticalAlignment="Center"/>
+                <TextBox Width="220"
+                         Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Пароль:"
+                           Width="80"
+                           VerticalAlignment="Center"/>
+                <TextBox Width="220"
+                         Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+        </StackPanel>
+
+        <Button Grid.Row="2"
+                Content="Войти"
+                Width="120" Height="32"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Command="{Binding LoginCommand}"/>
+
+        <Border Grid.Row="3"
+                Margin="0,12,0,0"
+                CornerRadius="4"
+                Padding="8"
+                Background="{Binding IsSuccess,
+                                     Converter={StaticResource BoolToBrushConverter}}">
+            <TextBlock Text="{Binding StatusMessage}"
+                       HorizontalAlignment="Center"
+                       TextWrapping="Wrap"/>
+        </Border>
+    </Grid>
+</Window>
